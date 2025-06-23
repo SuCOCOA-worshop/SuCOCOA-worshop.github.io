@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -110,6 +114,12 @@
             position: relative;
             overflow: hidden;
             font-weight: 500;
+            display: block;
+        }
+
+        nav a.active {
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         nav a::before {
@@ -145,6 +155,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e8ecef;
+            scroll-margin-top: 80px; /* Account for sticky nav */
         }
 
         section:hover {
@@ -296,6 +307,7 @@
             margin: 2.5rem 0;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            scroll-margin-top: 80px;
         }
 
         .important-dates h3 {
@@ -368,18 +380,81 @@
             color: #34495e;
         }
 
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ecf0f1;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .mobile-nav-menu {
+            display: flex;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
             }
             
+            nav {
+                position: relative;
+                padding: 0.8rem 1rem;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .mobile-nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                border-radius: 0 0 15px 15px;
+                z-index: 1000;
+            }
+            
+            .mobile-nav-menu.active {
+                display: flex;
+            }
+            
             nav ul {
                 flex-direction: column;
-                align-items: center;
+                margin: 0;
+                padding: 0;
             }
             
             nav li {
-                margin: 0.5rem 0;
+                margin: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            nav li:last-child {
+                border-bottom: none;
+            }
+            
+            nav a {
+                padding: 1rem 1.5rem;
+                border-radius: 0;
+                display: block;
+                text-align: left;
+            }
+            
+            nav a:hover {
+                transform: none;
+                background: rgba(255,255,255,0.1);
             }
             
             main {
@@ -388,6 +463,11 @@
             
             section {
                 padding: 1.5rem;
+                scroll-margin-top: 60px;
+            }
+            
+            .important-dates {
+                scroll-margin-top: 60px;
             }
             
             .topics-grid {
@@ -396,6 +476,14 @@
             
             .pc-members {
                 grid-template-columns: 1fr;
+            }
+            
+            .conference-info {
+                padding: 1rem;
+            }
+            
+            header {
+                padding: 2rem 0;
             }
         }
     </style>
@@ -414,15 +502,20 @@
         </header>
 
         <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#organizers">Organizers</a></li>
-                <li><a href="#program">Program</a></li>
-                <li><a href="#submission">Submission</a></li>
-                <li><a href="#dates">Important Dates</a></li>
-                <li><a href="#committee">Committee</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                ☰
+            </button>
+            <div class="mobile-nav-menu" id="mobileNavMenu">
+                <ul>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#organizers" class="nav-link">Organizers</a></li>
+                    <li><a href="#program" class="nav-link">Program</a></li>
+                    <li><a href="#submission" class="nav-link">Submission</a></li>
+                    <li><a href="#dates" class="nav-link">Important Dates</a></li>
+                    <li><a href="#committee" class="nav-link">Committee</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
         </nav>
 
         <main>
@@ -482,7 +575,7 @@
                 </div>
             </section>
 
-            <div class="important-dates">
+            <div id="dates" class="important-dates">
                 <h3>📅 Important Dates</h3>
                 <div class="date-item"><strong>Submission site opens:</strong> August 15, 2025</div>
                 <div class="date-item"><strong>Paper submission deadline:</strong> October 5, 2025</div>
@@ -577,30 +670,33 @@
             </section>
 
             <section id="submission">
-    <h2>Submission Guidelines</h2>
-    <p>We seek original, high-quality research submissions that improve and further the knowledge of industry-academia in computer systems areas. All types of classical, non-traditional, inter/multi-disciplinary, emerging topics are welcome.</p>
+                <h2>Submission Guidelines</h2>
+                <p>We seek original, high-quality research submissions that improve and further the knowledge of industry-academia in computer systems areas. All types of classical, non-traditional, inter/multi-disciplinary, emerging topics are welcome.</p>
 
-    <h3>📋 Review Process</h3>
-    <p>Papers will be evaluated on the following metrics to ensure high quality and relevance:</p>
-    <ul>
-        <li><strong>Novelty/Hypothesis:</strong> Original contribution and research question</li>
-        <li><strong>Literature Survey:</strong> Comprehensive review of related work</li>
-        <li><strong>System Design:</strong> Quality of proposed solution</li>
-        <li><strong>Experimental Validation:</strong> Evidence supporting hypothesis</li>
-        <li><strong>Sustainability Relevance:</strong> Connection to sustainability themes</li>
-        <li><strong>Quality Assurance:</strong> Originality and plagiarism checks</li>
-    </ul>
-</section>
+                <h3>📋 Review Process</h3>
+                <p>Papers will be evaluated on the following metrics to ensure high quality and relevance:</p>
+                <ul>
+                    <li><strong>Novelty/Hypothesis:</strong> Original contribution and research question</li>
+                    <li><strong>Literature Survey:</strong> Comprehensive review of related work</li>
+                    <li><strong>System Design:</strong> Quality of proposed solution</li>
+                    <li><strong>Experimental Validation:</strong> Evidence supporting hypothesis</li>
+                    <li><strong>Sustainability Relevance:</strong> Connection to sustainability themes</li>
+                    <li><strong>Quality Assurance:</strong> Originality and plagiarism checks</li>
+                </ul>
+            </section>
 
-<section id="contact">
-    <h2>Contact Information</h2>
-    <div class="contact-info">
-        <p><strong>Workshop Chairs:</strong></p>
-        <p>📧 For inquiries, please contact the organizing committee.</p>
-    </div>
-</section>
+            <section id="committee">
+                <h2>Program Committee</h2>
+                <p>Details about the program committee will be announced soon.</p>
+            </section>
 
-
+            <section id="contact">
+                <h2>Contact Information</h2>
+                <div class="contact-info">
+                    <p><strong>Workshop Chairs:</strong></p>
+                    <p>📧 For inquiries, please contact the organizing committee.</p>
+                </div>
+            </section>
         </main>
 
         <footer>
@@ -608,5 +704,103 @@
             <p>Promoting Sustainable Computing for a Better Future 🌱</p>
         </footer>
     </div>
+
+    <script>
+        // Enhanced navigation with smooth scrolling and active states
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section, .important-dates');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileNavMenu = document.getElementById('mobileNavMenu');
+            
+            // Mobile menu toggle
+            if (mobileMenuToggle && mobileNavMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileNavMenu.classList.toggle('active');
+                    // Change hamburger to X when open
+                    this.textContent = mobileNavMenu.classList.contains('active') ? '✕' : '☰';
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('nav')) {
+                        mobileNavMenu.classList.remove('active');
+                        mobileMenuToggle.textContent = '☰';
+                    }
+                });
+            }
+            
+            // Handle navigation clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close mobile menu if open
+                    if (mobileNavMenu && mobileNavMenu.classList.contains('active')) {
+                        mobileNavMenu.classList.remove('active');
+                        mobileMenuToggle.textContent = '☰';
+                    }
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Get target section
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        // Smooth scroll to section
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Update active navigation based on scroll position
+            function updateActiveNav() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Set initial active state
+            if (navLinks.length > 0) {
+                navLinks[0].classList.add('active');
+            }
+            
+            // Listen for scroll events (throttled)
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        updateActiveNav();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
 </body>
 </html>

@@ -198,12 +198,22 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             border-left: 5px solid #3498db;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            flex-direction: row;
+            text-align: left;
         }
 
         .organizer-card:hover {
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             transform: translateX(8px);
             border-left-color: #9b59b6;
+        }
+
+        .organizer-details {
+            flex: 1;
+            text-align: left;
         }
 
         .organizer-name {
@@ -218,6 +228,43 @@
             font-style: italic;
             margin-bottom: 1rem;
             font-size: 1rem;
+        }
+
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #3498db;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            background: #f3f3f3;
+        }
+
+        .speaker-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            background: #ffffff;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #e67e22;
+            transition: all 0.3s ease;
+            flex-direction: row;
+            text-align: left;
+        }
+
+        .speaker-details {
+            flex: 1;
+            text-align: left;
+        }
+
+        .speaker-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateX(8px);
+            border-left-color: #d35400;
         }
 
         .timeline-table {
@@ -485,6 +532,14 @@
             header {
                 padding: 2rem 0;
             }
+            .organizer-card, .speaker-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .organizer-details, .speaker-details {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -508,6 +563,7 @@
             <div class="mobile-nav-menu" id="mobileNavMenu">
                 <ul>
                     <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#keynotes" class="nav-link">Keynotes</a></li>
                     <li><a href="#organizers" class="nav-link">Organizers</a></li>
                     <li><a href="#program" class="nav-link">Program</a></li>
                     <li><a href="#submission" class="nav-link">Submission</a></li>
@@ -519,6 +575,7 @@
         </nav>
 
         <main>
+            <!-- About Section -->
             <section id="about">
                 <h2>About the Workshop</h2>
                 <p>The HiPC Workshop on Sustainable Compilers Operating Systems and Computer Architecture (SuCOCOA) aims to be the premier academic and industry forum for showcasing sustainability initiatives in the multidisciplinary computer systems research areas spanning hardware, software, and their interaction.</p>
@@ -543,10 +600,12 @@
                         <p>Efficient resource utilization and sustainable computing practices.</p>
                     </div>
                 </div>
+            </section>
 
-                <h3>Areas of Interest</h3>
+            <!-- Areas of Interest Section -->
+            <section id="areas">
+                <h2>Areas of Interest</h2>
                 <p>The workshop invites submissions in areas applicable to computer systems (from small, ultra-low power devices to large scale cluster computers, supercomputers and data centers). Areas include but are not limited to:</p>
-                
                 <div class="topics-grid">
                     <div class="topic-card">
                         <h4>🖥️ Compute Platforms</h4>
@@ -584,25 +643,58 @@
                 <div class="date-item"><strong>Conference dates:</strong> December 17-20, 2025</div>
             </div>
 
+            <!-- Keynote Speakers Section -->
+            <section id="keynotes">
+                <h2>Keynote Speakers</h2>
+                <div class="organizer-card speaker-card">
+                    <img src="images/vaidyanathan.jpg" alt="Vaidyanathan Srinivasan" class="profile-pic">
+                    <div class="organizer-details speaker-details">
+                        <div class="organizer-name">Vaidyanathan Srinivasan</div>
+                        <div class="organizer-title">
+                            Distinguished Engineer, Linux on Power, CTO - India Software Development Labs (Power Software), IBM
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="organizer-card speaker-card">
+                    <img src="images/madhavan.jpg" alt="Madhavan Srinivasan" class="profile-pic">
+                    <div class="organizer-details speaker_details">
+                        <div class="organizer-name">Madhavan Srinivasan</div>
+                        <div class="organizer-title">
+                            Linux on Power Upstream Kernel Maintainer, IBM
+                        </div>
+                  
+                    </div>
+                </div>
+            </section>
+
             <section id="organizers">
                 <h2>Organizers</h2>
-                
                 <div class="organizer-card">
-                    <div class="organizer-name">Suresh Kodati</div>
-                    <div class="organizer-title">Program Director, Linux Technology Center, IBM</div>
-                    <p>Experienced engineering and management leader with well-rounded product development expertise across Systems, Software, and Cloud technologies. Brings extensive technical and managerial experience in leading mission transitions and building high-performing teams. Organized Linux Kernel Meetups and multiple ISDL Conferences, each attracting over 100 participants, fostering strong community engagement and technical knowledge sharing.</p>
+                    <img src="images/suresh.jpg" alt="Suresh Kodati" class="profile-pic">
+                    <div class="organizer-details">
+                        <div class="organizer-name">Suresh Kodati</div>
+                        <div class="organizer-title">Program Director, Linux Technology Center, IBM</div>
+                        <p>Experienced engineering and management leader with well-rounded product development expertise across Systems, Software, and Cloud technologies. Brings extensive technical and managerial experience in leading mission transitions and building high-performing teams. Organized Linux Kernel Meetups and multiple ISDL Conferences, each attracting over 100 participants, fostering strong community engagement and technical knowledge sharing.</p>
+                    </div>
                 </div>
 
                 <div class="organizer-card">
-                    <div class="organizer-name">Kiruthika NV</div>
-                    <div class="organizer-title">Senior Manager, Linux Technology Center, IBM</div>
-                    <p>Accomplished professional with over 15 years of experience in embedded product development across diverse domains. Organizer of the Bangalore Linux Kernel Meetup, a community event that consistently draws over 150 Linux enthusiasts. Also initiated and led internal hackathons, fostering innovation and bringing a wealth of ideas to the table.</p>
+                    <img src="images/kiruthika.jpg" alt="Kiruthika NV" class="profile-pic">
+                    <div class="organizer-details">
+                        <div class="organizer-name">Kiruthika NV</div>
+                        <div class="organizer-title">Senior Manager, Linux Technology Center, IBM</div>
+                        <p>Accomplished professional with over 15 years of experience in embedded product development across diverse domains. Organizer of the Bangalore Linux Kernel Meetup, a community event that consistently draws over 150 Linux enthusiasts. Also initiated and led internal hackathons, fostering innovation and bringing a wealth of ideas to the table.</p>
+                    </div>
                 </div>
 
                 <div class="organizer-card">
-                    <div class="organizer-name">Basavaraj Talawar</div>
-                    <div class="organizer-title">Associate Professor, NITK, Surathkal</div>
-                    <p>Basavaraj Talawar is an Associate Professor at the CSE department at NITK, Surathkal where he heads the SPARK (Systems, Parallelization and Architecture Research at NITK) lab. He has a PhD from the Indian Institute of Science, Bangalore. His research interests are in Autonomous Vehicles, Algorithm Acceleration and Parallelization. He is a recipient of the Visvesvaraya Young Research Fellowship from the Govt. of India and a faculty award from IBM.</p>
+                    <img src="images/basavaraj.jpg" alt="Basavaraj Talawar" class="profile-pic">
+                    <div class="organizer-details">
+                        <div class="organizer-name">Basavaraj Talawar</div>
+                        <div class="organizer-title">Associate Professor, NITK, Surathkal</div>
+                        <p>Basavaraj Talawar is an Associate Professor at the CSE department at NITK, Surathkal where he heads the SPARK (Systems, Parallelization and Architecture Research at NITK) lab. He has a PhD from the Indian Institute of Science, Bangalore. His research interests are in Autonomous Vehicles, Algorithm Acceleration and Parallelization. He is a recipient of the Visvesvaraya Young Research Fellowship from the Govt. of India and a faculty award from IBM.</p>
+                    </div>
                 </div>
             </section>
 
@@ -656,17 +748,6 @@
                         </tr>
                     </tbody>
                 </table>
-                
-                <h3>🎤 Keynote Speakers</h3>
-                <div class="organizer-card">
-                    <div class="organizer-name">Vaidyanathan Srinivasan, IBM</div>
-                    <div class="organizer-title">Keynote Speaker (Confirmed)</div>
-                </div>
-                
-                <div class="organizer-card">
-                    <div class="organizer-name">Madhavan Srinivasan, IBM</div>
-                    <div class="organizer-title">Thematic Invited Talk (Tentative)</div>
-                </div>
             </section>
 
             <section id="submission">
@@ -687,7 +768,31 @@
 
             <section id="committee">
                 <h2>Program Committee</h2>
-                <p>Details about the program committee will be announced soon.</p>
+                <div class="pc-members">
+                    <div class="pc-member">Arkaprava Basu<br><span style="color:#7f8c8d;font-size:0.97em;">IISc Bangalore</span></div>
+                    <div class="pc-member">Biswabandan Panda<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Kanpur</span></div>
+                    <div class="pc-member">Chetan Sivakumar<br><span style="color:#7f8c8d;font-size:0.97em;">Indian Institute of Science</span></div>
+                    <div class="pc-member">Hemangee Kapoor<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Kanpur</span></div>
+                    <div class="pc-member">Janakiraman<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Madras</span></div>
+                    <div class="pc-member">Krishna Nandivada<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Madras</span></div>
+                    <div class="pc-member">Manikandan<br><span style="color:#7f8c8d;font-size:0.97em;">IIIT Bangalore</span></div>
+                    <div class="pc-member">Madhu Mutyam<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Madras</span></div>
+                    <div class="pc-member">Sandeep Chandran<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Palakkad</span></div>
+                    <div class="pc-member">Smruti Sarangi<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Delhi</span></div>
+                    <div class="pc-member">Subodh Kumar<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Delhi</span></div>
+                    <div class="pc-member">Preeti Malakar<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Kanpur</span></div>
+                    <div class="pc-member">Rupesh Nasre<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Madras</span></div>
+                    <div class="pc-member">Santosh Nagarkatte<br><span style="color:#7f8c8d;font-size:0.97em;">Rutgers University</span></div>
+                    <div class="pc-member">Sreepathi Pai<br><span style="color:#7f8c8d;font-size:0.97em;">University of Rochester</span></div>
+                    <div class="pc-member">Subramanya Bharadwaj<br><span style="color:#7f8c8d;font-size:0.97em;">Robert Bosch</span></div>
+                    <div class="pc-member">Vivek Chaturvedi<br><span style="color:#7f8c8d;font-size:0.97em;">IIT Palakkad</span></div>
+                    <div class="pc-member">Nysal Jan<br><span style="color:#7f8c8d;font-size:0.97em;">IBM, LTC</span></div>
+                    <div class="pc-member">Ritesh Harjani<br><span style="color:#7f8c8d;font-size:0.97em;">IBM, LTC</span></div>
+                    <div class="pc-member">Madhavan Srinivasan<br><span style="color:#7f8c8d;font-size:0.97em;">IBM, LTC</span></div>
+                    <div class="pc-member">Kiruthika Varadarajan<br><span style="color:#7f8c8d;font-size:0.97em;">IBM, LTC</span></div>
+                    <div class="pc-member">Suresh Kodati<br><span style="color:#7f8c8d;font-size:0.97em;">IBM LTC</span></div>
+                    <div class="pc-member">Mahesh Salgaonkar<br><span style="color:#7f8c8d;font-size:0.97em;">IBM LTC</span></div>
+                </div>
             </section>
 
             <section id="contact">
